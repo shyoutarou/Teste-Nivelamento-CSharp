@@ -78,7 +78,7 @@ Caso os dados sejam recebidos e estejam válidos, devem ser persistidos na tabel
 
 Caso os dados estejam inconsistentes, deve retornar falha HTTP 400 (Bad Request) e no body uma mensagem descritiva de qual foi a falha e o tipo de falha.
 
-Serviço: Saldo da conta corrente
+## Serviço: Saldo da conta corrente
 
 O aplicativo da empresa necessita exibir o saldo atual da conta corrente.
 

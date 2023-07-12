@@ -57,7 +57,7 @@ git add .
 Todos os arquivos do diretório de trabalho são adicionados/preparados ao Git 
 
 <p align="center">
-	<img src="../assets/gitinit.png" alt="csharp" title="C#" width="370" height="300">
+	<img src="../assets/gitinit.png" alt="csharp" title="C#" width="800" height="300">
 </p>
 
 git commit -m "Commit 1"
@@ -67,7 +67,7 @@ git rm default.html
 O arquivo default.html é removido do o arquivo default.html é removido do diretório de trabalho, registrando a remoção do arquivo no histórico de alterações. 
  
 <p align="center">
-	<img src="../assets/removedefault.png" alt="csharp" title="C#" width="370" height="300">
+	<img src="../assets/removedefault.png" alt="csharp" title="C#" width="800" height="300">
 </p>
 
 nano style.css
@@ -84,7 +84,7 @@ Criada uma nova branch chamada "testing". O comando "-b" indica que você deseja
  
  
 <p align="center">
-	<img src="../assets/gitcheckout.png" alt="csharp" title="C#" width="370" height="300">
+	<img src="../assets/gitcheckout.png" alt="csharp" title="C#" width="800" height="200">
 </p>
 
 
@@ -99,11 +99,11 @@ git commit -m "Commit 3"
 É feito o terceiro commit na branch "testing" com a mensagem "Commit 3"
  
 <p align="center">
-	<img src="../assets/commit3.png" alt="csharp" title="C#" width="370" height="300">
+	<img src="../assets/commit3.png" alt="csharp" title="C#" width="800" height="170">
 </p>
 
 <p align="center">
-	<img src="../assets/commit3_files.png" alt="csharp" title="C#" width="370" height="300">
+	<img src="../assets/commit3_files.png" alt="csharp" title="C#" width="800" height="200">
 </p>
 
  
@@ -112,7 +112,7 @@ Por fim, é feito o checkout para a branch "master". Após dar o checkout para a
 
  
 <p align="center">
-	<img src="../assets/files_final.png" alt="csharp" title="C#" width="370" height="300">
+	<img src="../assets/files_final.png" alt="csharp" title="C#" width="800" height="200">
 </p>
 
 
