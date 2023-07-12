@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Questao5_Data.Domain.Entities.ContaCorrente>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContaCorrente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saldo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DtAlteracao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdContaCorrente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Saldo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DtAlteracao)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.IdContaCorrente }, new { @class = "btn btn-primary edit", @id = item.IdContaCorrente })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="modal" class="modal fade" role="dialog" />
+
+@*@section scripts{
+    <script>
+        $(function () {
+
+            $(".edit").click(function () {
+
+                debugger;
+                var id = $(this).attr("id");
+                alert(id);
+                $("#modal").load("Editar?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+
+        })
+    </script>
+}*@
