@@ -1,39 +1,33 @@
-<h1 align="center">Conceitos Aboradados :books:</h1>
- 
+# Conceitos Abordados :books:
+
 <!--Banner session-->
-<img src="./assets/csharp.svg" alt="csharp" tittle="C#" width="70" height="70">
- 
-<!-- C Sharp -->
+![csharp](./assets/csharp.svg "C#")
+
 <details>
     <summary><strong>DDD (Domain Driven Design)</strong></summary>
     <br />
-    <div align="left">
 
-	Domain-Driven Design (DDD) é uma abordagem de design de software que se concentra na modelagem do domínio do problema em questão. O objetivo principal do DDD é desenvolver sistemas que reflitam de forma precisa e eficaz as regras e conceitos do negócio, tornando o código mais legível, compreensível e escalável.
+    Domain-Driven Design (DDD) é uma abordagem de design de software que se concentra na modelagem do domínio do problema em questão. O objetivo principal do DDD é desenvolver sistemas que reflitam de forma precisa e eficaz as regras e conceitos do negócio, tornando o código mais legível, compreensível e escalável.
 
-	No DDD, o "domínio" refere-se à área de conhecimento específica que o software está tentando resolver. Pode ser qualquer coisa, desde uma aplicação bancária até um sistema de gerenciamento de pedidos online. O DDD coloca o domínio no centro do design do software, buscando compreender profundamente os requisitos, processos e regras do domínio.
+    No DDD, o "domínio" refere-se à área de conhecimento específica que o software está tentando resolver. Pode ser qualquer coisa, desde uma aplicação bancária até um sistema de gerenciamento de pedidos online. O DDD coloca o domínio no centro do design do software, buscando compreender profundamente os requisitos, processos e regras do domínio.
 
-	Aqui estão alguns conceitos-chave do DDD:
+    Aqui estão alguns conceitos-chave do DDD:
 
-	1.	Modelagem do domínio: No DDD, o domínio é modelado através de entidades, agregados, serviços, eventos e valores de objetos. A ideia é criar um modelo rico e expressivo que reflita as complexidades e interações do domínio. A modelagem do domínio é uma atividade colaborativa que envolve especialistas no negócio e desenvolvedores.
+    1. Modelagem do domínio: No DDD, o domínio é modelado através de entidades, agregados, serviços, eventos e valores de objetos. A ideia é criar um modelo rico e expressivo que reflita as complexidades e interações do domínio. A modelagem do domínio é uma atividade colaborativa que envolve especialistas no negócio e desenvolvedores.
 
-	2.	Bounded Contexts (Contextos Delimitados): Um Bounded Context é um limite lógico em torno de um modelo de domínio específico. É uma forma de dividir um sistema em partes menores e mais gerenciáveis, cada uma com seu próprio modelo de domínio e linguagem ubíqua (linguagem compartilhada por especialistas e desenvolvedores). Essa divisão ajuda a lidar com complexidades e a garantir que o modelo de domínio seja coerente dentro de cada contexto.
+    2. Bounded Contexts (Contextos Delimitados): Um Bounded Context é um limite lógico em torno de um modelo de domínio específico. É uma forma de dividir um sistema em partes menores e mais gerenciáveis, cada uma com seu próprio modelo de domínio e linguagem ubíqua (linguagem compartilhada por especialistas e desenvolvedores). Essa divisão ajuda a lidar com complexidades e a garantir que o modelo de domínio seja coerente dentro de cada contexto.
 
-	3.	Ubiquitous Language (Linguagem Ubíqua): A Linguagem Ubíqua é uma linguagem compartilhada entre os especialistas do domínio e os desenvolvedores. É uma linguagem que descreve conceitos e processos do negócio de forma precisa e comum a todas as partes envolvidas. O uso dessa linguagem comum ajuda a evitar ambiguidades e facilita a comunicação efetiva entre todos os envolvidos no projeto.
+    3. Ubiquitous Language (Linguagem Ubíqua): A Linguagem Ubíqua é uma linguagem compartilhada entre os especialistas do domínio e os desenvolvedores. É uma linguagem que descreve conceitos e processos do negócio de forma precisa e comum a todas as partes envolvidas. O uso dessa linguagem comum ajuda a evitar ambiguidades e facilita a comunicação efetiva entre todos os envolvidos no projeto.
 
-	4.	Aggregates (Agregados): Agregados são grupos de objetos relacionados que são tratados como uma única unidade. Eles definem limites claros para a consistência e a transação no modelo de domínio. Os agregados encapsulam regras de negócio e controlam o acesso aos objetos internos. Eles são responsáveis por garantir a integridade dos dados e manter a consistência no contexto delimitado.
+    4. Aggregates (Agregados): Agregados são grupos de objetos relacionados que são tratados como uma única unidade. Eles definem limites claros para a consistência e a transação no modelo de domínio. Os agregados encapsulam regras de negócio e controlam o acesso aos objetos internos. Eles são responsáveis por garantir a integridade dos dados e manter a consistência no contexto delimitado.
 
-	O DDD oferece uma abordagem mais estruturada e orientada ao negócio para o desenvolvimento de software, permitindo que os desenvolvedores compreendam melhor o problema em questão e criem soluções
+    5. O DDD oferece uma abordagem mais estruturada e orientada ao negócio para o desenvolvimento de software, permitindo que os desenvolvedores compreendam melhor o problema em questão e criem soluções.
 
-
-	 
-    </div>
 </details>
 
 <details>
-    <summary><strong>Implementação de Mocks</strong></summary>
+    <summary><strong>DDD (Domain Driven Design)</strong></summary>
     <br />
-    <div align="left">
 
 
 A implementação de mocks é uma prática comum no desenvolvimento de testes unitários, onde objetos simulados são utilizados para substituir dependências reais e controlar o comportamento esperado durante os testes. Vou descrever o processo geral de implementação de mocks e em seguida fazer uma comparação entre as ferramentas NSubstitute e Mockito.
@@ -86,39 +80,30 @@ Contras:
 
 Ambas as ferramentas, NSubstitute e Mockito, são amplamente utilizadas e oferecem recursos eficientes para a implementação de mocks. A escolha entre elas dependerá principalmente da linguagem de programação que você está utilizando e das preferências pessoais. É recomendado experimentar as bibliotecas e verificar qual delas melhor atende às suas necessidades em termos de facilidade de uso, funcionalidades disponíveis e integração com seu ambiente de teste.
 
-
-	 
-    </div>
-</details>
-
-
-<details>
-    <summary><strong>Implementação de Mocks</strong></summary>
-    <br />
-    <div align="left">
-
-
-```bash
-const entrada = gets();
-```
-
-	 
-    </div>
 </details>
 
 
 <details>
     <summary><strong>DDD (Domain Driven Design)</strong></summary>
     <br />
-    <div align="left">
 
 
 ```bash
 const entrada = gets();
 ```
 
-	 
-    </div>
+</details>
+
+
+<details>
+    <summary><strong>DDD (Domain Driven Design)</strong></summary>
+    <br />
+
+
+```bash
+const entrada = gets();
+```
+
 </details>
 
 
