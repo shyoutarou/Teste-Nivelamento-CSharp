@@ -10,13 +10,13 @@ O comando deve ordenar os registros por ANO e por QUANTIDADE de ocorrências de 
 Dados existentes na tabela:
 
 <p align="center">
-	<img src="./assets/dados_existentes.png" alt="csharp" title="C#" width="70" height="70">
+	<img src="../assets/dados_existentes.png" alt="csharp" title="C#" width="370" height="300">
 </p>
 
 Resultado esperado:
  
 <p align="center">
-	<img src="./assets/resultadoesperado.png" alt="csharp" title="C#" width="70" height="70">
+	<img src="../assets/resultadoesperado.png" alt="csharp" title="C#" width="370" height="300">
 </p>
 
 Comandos para criação da tabela e inserção dos registros:
