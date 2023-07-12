@@ -1,7 +1,8 @@
 # Conceitos Abordados :books:
 
 <!--Banner session-->
-![csharp](./assets/csharp.svg "C#")
+<img src="./assets/csharp.svg" alt="csharp" title="C#" width="70" height="70">
+
 
 <details>
     <summary><strong>Implementação de Mocks</strong></summary>
