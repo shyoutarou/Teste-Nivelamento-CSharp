@@ -15,44 +15,67 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
         }
 
 
-        public void AddMovimentacao(Movimentacao movimentacao)
+        public async Task AddMovimentacaoAsync(Movimentacao movimentacao)
         {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            try
             {
-                var dataMovimento = DateTime.Now.ToString(); // Obtém a data e hora atual
+                using (var connection = new SqliteConnection(_databaseConfig.Name))
+                {
+                    var dataMovimento = DateTime.Now.ToString(); // Obtém a data e hora atual
 
-                connection.Execute(@"INSERT INTO movimento (idmovimento, idcontacorrente, datamovimento, valor, tipomovimento)
-                            VALUES (@IdMovimentacao, @IdContaCorrente, @DataMovimento, @Valor, @TipoMovimento)",
-                                    new
-                                    {
-                                        movimentacao.IdMovimentacao,
-                                        movimentacao.IdContaCorrente,
-                                        DataMovimento = dataMovimento,
-                                        movimentacao.Valor,
-                                        movimentacao.TipoMovimento
-                                    });
+                    await connection.ExecuteAsync(@"INSERT INTO movimento (idmovimento, idcontacorrente, datamovimento, valor, tipomovimento)
+                                                VALUES (@IdMovimento, @IdContaCorrente, @DataMovimento, @Valor, @TipoMovimento)",
+                                                new
+                                                {
+                                                    movimentacao.IdMovimento,
+                                                    movimentacao.IdContaCorrente,
+                                                    DataMovimento = dataMovimento,
+                                                    movimentacao.Valor,
+                                                    movimentacao.TipoMovimento
+                                                });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tratar o erro ou lançar exceção adequada
+                throw new Exception("Ocorreu um erro ao adicionar a movimentação.", ex);
             }
         }
 
-
-        public bool UpdateMovimentacao(Movimentacao movimentacao)
+        public async Task<bool> UpdateMovimentacaoAsync(Movimentacao movimentacao)
         {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            try
             {
-                connection.Execute(@"UPDATE movimento SET
-                                       Valor = @Valor, 
-                                       TipoMovimento = @TipoMovimento
-                                      WHERE IdContaCorrente = @IdContaCorrente ", movimentacao);
+                using (var connection = new SqliteConnection(_databaseConfig.Name))
+                {
+                    await connection.ExecuteAsync(@"UPDATE movimento SET
+                                               Valor = @Valor, 
+                                               TipoMovimento = @TipoMovimento
+                                               WHERE IdContaCorrente = @IdContaCorrente", movimentacao);
 
-                return true;
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tratar o erro ou lançar exceção adequada
+                throw new Exception("Ocorreu um erro ao atualizar a movimentação.", ex);
             }
         }
 
-        public void DeleteMovimentacao(int id)
+        public async Task DeleteMovimentacaoAsync(int id)
         {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            try
             {
-                connection.Execute(@"DELETE movimento WHERE IdContaCorrente = @IdContaCorrente", id);
+                using (var connection = new SqliteConnection(_databaseConfig.Name))
+                {
+                    await connection.ExecuteAsync(@"DELETE FROM movimento WHERE IdContaCorrente = @IdContaCorrente", new { IdContaCorrente = id });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tratar o erro ou lançar exceção adequada
+                throw new Exception("Ocorreu um erro ao excluir a movimentação.", ex);
             }
         }
     }

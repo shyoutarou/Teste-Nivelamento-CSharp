@@ -22,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Saldo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DtAlteracao)
+                @Html.DisplayNameFor(model => model.UltimaDataMovimento)
             </th>
             <th></th>
         </tr>
@@ -47,7 +47,7 @@
                     @Html.DisplayFor(modelItem => item.Saldo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DtAlteracao)
+                    @Html.DisplayFor(modelItem => item.UltimaDataMovimento)
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Editar", new { id = item.IdContaCorrente }, new { @class = "btn btn-primary edit", @id = item.IdContaCorrente })

@@ -1,3 +1,4 @@
+using MVC_Core_Client.Infrastructure.Services;
 using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
 using Questao5_Data.Infrastructure.Sqlite;
@@ -11,6 +12,8 @@ builder.Services.AddTransient<IContaCorrenteQuery, ContaCorrenteQuery>();
 builder.Services.AddTransient<IContaCorrenteCommand, ContaCorrenteCommand>();
 builder.Services.AddTransient<IMovimentacaoQuery, MovimentacaoQuery>();
 builder.Services.AddTransient<IMovimentacaoCommand, MovimentacaoCommand>();
+builder.Services.AddTransient<IMovimentacaoService, MovimentacaoService>();
+builder.Services.AddTransient<HttpClient>();
 
 //            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 

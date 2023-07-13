@@ -2,6 +2,8 @@
 using Microsoft.Data.Sqlite;
 using Questao5_Data.Domain.Entities;
 using Questao5_Data.Infrastructure.Sqlite;
+using System.Reflection.Emit;
+using System.Security.Cryptography;
 
 namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
 {
@@ -14,49 +16,89 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
             _databaseConfig = databaseConfig;
         }
 
-        public IEnumerable<ContaCorrente> GetAllContasCorrentes()
+        public async Task<IEnumerable<ContaCorrente>> GetAllContasCorrentesAsync()
         {
-            List<ContaCorrente> lstContaCorrente = new List<ContaCorrente>();
+
             using (var connection = new SqliteConnection(_databaseConfig.Name))
             {
-                connection.Open();
+                await connection.OpenAsync();
 
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT IdContaCorrente, Numero, Nome, Ativo FROM contacorrente";
+                var query = @"SELECT MAX(m.idmovimento) AS idmovimento, c.idcontacorrente, c.numero, c.nome, c.ativo,
+                          SUM(m.valor) AS Creditos,
+                          SUM(CASE WHEN m.tipomovimento = 'D' THEN m.valor ELSE 0 END) AS Debitos
+                      FROM contacorrente c
+                      LEFT JOIN movimento m ON c.idcontacorrente = m.idcontacorrente
+                      GROUP BY c.idcontacorrente, c.numero, c.nome, c.ativo";
 
-                using (var reader = command.ExecuteReader())
+                var queryResult = await connection.QueryAsync<ContaCorrente>(query);
+
+                var lstContaCorrente = queryResult.Select(row => new ContaCorrente
                 {
-                    while (reader.Read())
-                    {
-                        ContaCorrente contaCorrente = new ContaCorrente();
-                        contaCorrente.IdContaCorrente = reader.GetString(0);
-                        contaCorrente.Numero = reader.GetInt32(1);
-                        contaCorrente.Nome = reader.GetString(2);
-                        contaCorrente.Ativo = reader.GetBoolean(3);
-                        lstContaCorrente.Add(contaCorrente);
-                    }
-                }
+                    IdMovimento = row.IdMovimento,
+                    IdContaCorrente = row.IdContaCorrente,
+                    Numero = row.Numero,
+                    Nome = row.Nome,
+                    Ativo = row.Ativo,
+                    Creditos = row.Creditos,
+                    Debitos = row.Debitos,
+                    Saldo = row.Creditos - row.Debitos
+                }).ToList();
 
                 connection.Close();
-            }
 
-            return lstContaCorrente;
-        }
-
-
-        public IEnumerable<ContaCorrente> GetAllContasCorrentes_Simples()
-        {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
-            {
-                return connection.Query<ContaCorrente>("SELECT * FROM contacorrente");
+                return lstContaCorrente;
             }
         }
 
-        public ContaCorrente GetContaCorrenteById(string idContaCorrente)
+
+        public async Task<IEnumerable<ContaCorrente>> GetAllContasCorrentes_SimplesAsync()
         {
             using (var connection = new SqliteConnection(_databaseConfig.Name))
             {
-                return connection.QuerySingleOrDefault<ContaCorrente>("SELECT * FROM contacorrente WHERE IdContaCorrente = @IdContaCorrente",
+                await connection.OpenAsync();
+                return await connection.QueryAsync<ContaCorrente>("SELECT * FROM contacorrente");
+            }
+        }
+
+
+        public async Task<ContaCorrente> GetContaCorrenteAsync(int numeroConta)
+        {
+            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            {
+                await connection.OpenAsync();
+
+                // Consulta para obter as movimentações da conta
+                var query = "SELECT * FROM movimento WHERE idcontacorrente = @NumeroConta";
+                var movimentacoes = await connection.QueryAsync<Movimentacao>(query, new { NumeroConta = numeroConta });
+
+                // Cálculo do saldo
+                decimal saldo = movimentacoes.Where(m => m.TipoMovimento == 'C').Sum(m => m.Valor) -
+                                movimentacoes.Where(m => m.TipoMovimento == 'D').Sum(m => m.Valor);
+
+                // Consulta para obter os dados da conta corrente
+                var queryContaCorrente = "SELECT * FROM contacorrente WHERE numero = @NumeroConta";
+                var contaCorrente = await connection.QueryFirstOrDefaultAsync<ContaCorrente>(queryContaCorrente, new { NumeroConta = numeroConta });
+
+                if (contaCorrente == null)
+                {
+                    // Conta corrente não encontrada
+                    throw new Exception("Conta corrente não encontrada");
+                }
+
+                // Atribuir os valores calculados à conta corrente
+                contaCorrente.UltimaDataMovimento = DateTime.Now;
+                contaCorrente.Saldo = saldo;
+
+                return contaCorrente;
+            }
+        }
+
+        public async Task<ContaCorrente> GetContaCorrenteByIdAsync(string idContaCorrente)
+        {
+            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            {
+                await connection.OpenAsync();
+                return await connection.QuerySingleOrDefaultAsync<ContaCorrente>("SELECT * FROM contacorrente WHERE IdContaCorrente = @IdContaCorrente",
                     new { IdContaCorrente = idContaCorrente });
             }
         }

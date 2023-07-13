@@ -4,9 +4,12 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
 {
     public interface IContaCorrenteQuery
     {
-        IEnumerable<ContaCorrente> GetAllContasCorrentes();
-        IEnumerable<ContaCorrente> GetAllContasCorrentes_Simples();
-        ContaCorrente GetContaCorrenteById(string idContaCorrente);
+        Task<IEnumerable<ContaCorrente>> GetAllContasCorrentesAsync();
+        Task<IEnumerable<ContaCorrente>> GetAllContasCorrentes_SimplesAsync();
+
+        Task<ContaCorrente> GetContaCorrenteAsync(int numeroConta);
+
+        Task<ContaCorrente> GetContaCorrenteByIdAsync(string idContaCorrente);
 
     }
 }

@@ -30,11 +30,17 @@ namespace API_Core.Controllers
         /// Obtém todas as movimentações.
         /// </summary>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                IEnumerable<Movimentacao> movimentacoes = _movimentacaoQuery.GetMovimentacoes();
+                //IEnumerable<ContaCorrente> movimentacoes = await _contaCorrenteQuery.GetAllContasCorrentes_SimplesAsync();
+                //return Ok(movimentacoes);
+
+
+
+
+                IEnumerable<Movimentacao> movimentacoes = await _movimentacaoQuery.GetMovimentacoesAsync();
                 return Ok(movimentacoes);
             }
             catch (Exception ex)
@@ -48,11 +54,11 @@ namespace API_Core.Controllers
         /// Obtém uma movimentação por ID.
         /// </summary>
         [HttpGet("{id}")]
-        public ActionResult<Movimentacao> Get(int id)
+        public async Task<ActionResult<Movimentacao>> Get(int id)
         {
             try
             {
-                Movimentacao movimentacao = _movimentacaoQuery.GetMovimentacaoById(id);
+                Movimentacao movimentacao = await _movimentacaoQuery.GetMovimentacaoByIdAsync(id);
                 if (movimentacao == null)
                 {
                     return NotFound();
@@ -70,12 +76,12 @@ namespace API_Core.Controllers
         /// Adiciona uma nova movimentação.
         /// </summary>
         [HttpPost]
-        public IActionResult Post([FromBody] Movimentacao movimentacao)
+        public async Task<IActionResult> Post([FromBody] Movimentacao movimentacao)
         {
             try
             {
-                _movimentacaoCommand.AddMovimentacao(movimentacao);
-                return CreatedAtAction(nameof(Get), new { id = movimentacao.IdMovimentacao }, movimentacao);
+                await _movimentacaoCommand.AddMovimentacaoAsync(movimentacao);
+                return CreatedAtAction(nameof(Get), new { id = movimentacao.IdMovimento }, movimentacao);
             }
             catch (Exception ex)
             {
@@ -88,15 +94,15 @@ namespace API_Core.Controllers
         /// Atualiza uma movimentação existente.
         /// </summary>
         [HttpPut("{id}")]
-        public IActionResult Put(string id, [FromBody] Movimentacao movimentacao)
+        public async Task<IActionResult> Put(string id, [FromBody] Movimentacao movimentacao)
         {
             try
             {
-                if (id != movimentacao.IdMovimentacao)
+                if (id != movimentacao.IdMovimento)
                 {
                     return BadRequest();
                 }
-                bool updated = _movimentacaoCommand.UpdateMovimentacao(movimentacao);
+                bool updated = await _movimentacaoCommand.UpdateMovimentacaoAsync(movimentacao);
                 if (!updated)
                 {
                     return NotFound();
@@ -114,14 +120,15 @@ namespace API_Core.Controllers
         /// Aplica um patch em uma movimentação.
         /// </summary>
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, [FromBody] JsonPatchDocument<Movimentacao> patch)
+        public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<Movimentacao> patch)
         {
             try
             {
-                Movimentacao movimentacao = _movimentacaoQuery.GetMovimentacaoById(id);
+                Movimentacao movimentacao = await _movimentacaoQuery.GetMovimentacaoByIdAsync(id);
                 if (movimentacao != null)
                 {
                     patch.ApplyTo(movimentacao);
+                    await _movimentacaoCommand.UpdateMovimentacaoAsync(movimentacao);
                     return Ok();
                 }
                 return NotFound();
@@ -137,16 +144,16 @@ namespace API_Core.Controllers
         /// Exclui uma movimentação existente.
         /// </summary>
         [HttpDelete("{id}")]
-        public IActionResult DeleteMovimentacao(int id)
+        public async Task<IActionResult> DeleteMovimentacao(int id)
         {
             try
             {
-                Movimentacao movimentacao = _movimentacaoQuery.GetMovimentacaoById(id);
+                Movimentacao movimentacao = await _movimentacaoQuery.GetMovimentacaoByIdAsync(id);
                 if (movimentacao == null)
                 {
                     return NotFound();
                 }
-                _movimentacaoCommand.DeleteMovimentacao(id);
+                await _movimentacaoCommand.DeleteMovimentacaoAsync(id);
                 return NoContent();
             }
             catch (Exception ex)
@@ -155,5 +162,6 @@ namespace API_Core.Controllers
                 return BadRequest();
             }
         }
+
     }
 }

@@ -8,23 +8,32 @@ namespace Questao5_Data.Domain.Entities
     public class ContaCorrente
     {
         [Key]
-        [Display(Name = "ID")]
         public string IdContaCorrente { get; set; }
 
-        [Display(Name = "Número")]
+
         public int Numero { get; set; }
 
-        [Display(Name = "Nome")]
+
         public string Nome { get; set; }
 
-        [Display(Name = "Ativo")]
+
         public bool Ativo { get; set; }
 
-        [Display(Name = "Data de Alteração")]
+
         public DateTime DtAlteracao { get; set; }
 
-        [Display(Name = "Saldo")]
+
+        public DateTime UltimaDataMovimento { get; set; }
+
+
         public decimal Saldo { get; set; }
+
+
+        public decimal Creditos { get; set; }
+
+        public decimal Debitos { get; set; }
+
+        public string IdMovimento { get; set; }
 
     }
 }

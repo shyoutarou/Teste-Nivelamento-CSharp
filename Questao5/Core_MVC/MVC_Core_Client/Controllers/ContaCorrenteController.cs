@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using MVC_Core_Client.Infrastructure.Services;
+using MVC_Core_Client.Models;
 using Questao5_Data.Domain.Entities;
-using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
-using System.Text;
 
 namespace MVC_Core_Client.Controllers
 {
@@ -11,19 +10,32 @@ namespace MVC_Core_Client.Controllers
     {
         private readonly IMovimentacaoQuery _movimentacaoQuery;
         private readonly IContaCorrenteQuery _contaCorrenteQuery;
+        private readonly IMovimentacaoService _movimentacaoService;
 
-        public ContaCorrenteController(IMovimentacaoQuery movimentacaoQuery,
-                               IContaCorrenteQuery contaCorrenteQuery)
+        public ContaCorrenteController(IMovimentacaoQuery movimentacaoQuery, 
+            IContaCorrenteQuery contaCorrenteQuery, 
+            IMovimentacaoService movimentacaoService)
         {
             _movimentacaoQuery = movimentacaoQuery;
             _contaCorrenteQuery = contaCorrenteQuery;
+            _movimentacaoService = movimentacaoService;
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<ContaCorrente> listaContaCorrentes = new List<ContaCorrente>();
-            listaContaCorrentes = this._contaCorrenteQuery.GetAllContasCorrentes().ToList();
+            var listaContaCorrentes = await _contaCorrenteQuery.GetAllContasCorrentesAsync();
+
+            var listaContaCorrenteModel = listaContaCorrentes.Select(x => new ContaCorrenteModel
+            {
+                IdContaCorrente = x.IdContaCorrente,
+                Numero = x.Numero,
+                Nome = x.Nome,
+                Ativo = x.Ativo,
+                Saldo = x.Saldo,
+                UltimaDataMovimento = x.UltimaDataMovimento
+            }).ToList();
+
             return View(listaContaCorrentes);
         }
 
@@ -40,7 +52,7 @@ namespace MVC_Core_Client.Controllers
 
                 var movimentacao = new Movimentacao()
                 {
-                    IdMovimentacao = Guid.NewGuid().ToString().ToUpper(),
+                    IdMovimento = Guid.NewGuid().ToString().ToUpper(),
                     IdContaCorrente = id
                 };
 
@@ -52,6 +64,7 @@ namespace MVC_Core_Client.Controllers
             }
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Editar(Movimentacao movimentacao)
@@ -60,30 +73,18 @@ namespace MVC_Core_Client.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    using (var httpClient = new HttpClient())
+                    var sucesso = await _movimentacaoService.EditarMovimentacaoAsync(movimentacao);
+
+                    if (sucesso)
                     {
-                        // Convertendo o objeto movimentacao em JSON
-                        string jsonContent = JsonConvert.SerializeObject(movimentacao);
-
-                        // Criando o conteúdo da requisição
-                        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                        // Fazendo a chamada para a API
-                        HttpResponseMessage response = await httpClient.PostAsync("https://localhost:44358/api/movimentacoes", content);
-
-                        // Verificando se a requisição foi bem-sucedida
-                        if (response.IsSuccessStatusCode)
-                        {
-                            // Redirecionando para a ação "Index"
-                            return RedirectToAction("Index");
-                        }
-                        else
-                        {
-                            // Lidar com o caso de erro na requisição
-                            // ...
-                        }
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return BadRequest("Ocorreu um erro ao editar a conta.");
                     }
                 }
+
                 return View(movimentacao);
             }
             catch (Exception ex)
@@ -91,7 +92,5 @@ namespace MVC_Core_Client.Controllers
                 return BadRequest("Ocorreu um erro ao editar a conta.");
             }
         }
-
-
     }
 }

@@ -71,5 +71,5 @@ ORDER BY ANO DESC, QUANTIDADE DESC;
 ```
 
 <p align="center">
-	<img src="../assets/havingquery.png" alt="csharp" title="C#" width="550" height="120">
+	<img src="../assets/havingquery.png" alt="csharp" title="C#" width="850" height="420">
 </p>
