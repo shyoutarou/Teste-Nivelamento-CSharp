@@ -22,13 +22,13 @@ namespace Questao5_Data.Domain.Entities
         [Required(ErrorMessage = "O campo Valor é obrigatório.")]
         public string ValorString { get; set; }
 
-        public decimal Valor
+        public double Valor
         {
             get
             {
                 if (!String.IsNullOrWhiteSpace(ValorString))
                 {
-                    if (decimal.TryParse(ValorString.Replace(",", "."), out decimal valor))
+                    if (double.TryParse(ValorString.Replace(",", "."), out double valor))
                         return valor;
                 }
 

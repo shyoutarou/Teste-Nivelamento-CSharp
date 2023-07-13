@@ -1060,6 +1060,24 @@ Embora o CQRS não seja um padrão do GOF, ele tem ganhado destaque e popularida
 
 ## Banco de dados
 
+
+<details>
+    <summary><strong>Sqlite</strong></summary>
+    <br />
+
+SQLite é um sistema de gerenciamento de banco de dados relacional embutido, que é amplamente utilizado em aplicativos e dispositivos móveis devido à sua simplicidade, eficiência e portabilidade. Ele é uma biblioteca de software escrita em linguagem C, que fornece um mecanismo de banco de dados SQL completo, incluindo armazenamento, consulta e gerenciamento de transações, tudo em um único arquivo.
+
+Uma das principais características do SQLite é que ele não requer um servidor separado para funcionar, pois todo o banco de dados é armazenado em um único arquivo. Isso facilita a implantação e o uso, tornando-o adequado para aplicativos de pequeno a médio porte. O SQLite também é conhecido por sua alta confiabilidade e estabilidade, sendo amplamente utilizado em dispositivos móveis, navegadores da web e outros aplicativos que exigem um banco de dados local.
+
+Outra vantagem do SQLite é sua ampla compatibilidade. Ele suporta a maioria das instruções SQL padrão e fornece recursos como índices, visões, gatilhos e funções definidas pelo usuário. Além disso, ele tem bindings para várias linguagens de programação populares, como C/C++, Python, Java e muitas outras, o que facilita a integração em diferentes ambientes de desenvolvimento.
+
+Embora o SQLite seja altamente eficiente e adequado para muitas aplicações, é importante ressaltar que ele não é projetado para lidar com grandes volumes de dados ou cargas de trabalho intensivas. Em cenários de alta concorrência ou requisitos de escalabilidade significativos, outros sistemas de gerenciamento de banco de dados podem ser mais adequados.
+
+No geral, o SQLite é uma escolha popular para aplicativos que requerem um banco de dados leve, embutido e de fácil uso. Sua simplicidade, portabilidade e compatibilidade o tornam uma opção confiável para uma ampla variedade de casos de uso.
+
+</details>
+
+
 <details>
     <summary><strong>Dapper</strong></summary>
     <br />

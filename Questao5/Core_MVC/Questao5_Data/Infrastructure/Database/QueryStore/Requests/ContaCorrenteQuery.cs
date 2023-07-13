@@ -72,7 +72,7 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
                 var movimentacoes = await connection.QueryAsync<Movimentacao>(query, new { NumeroConta = numeroConta });
 
                 // Cálculo do saldo
-                decimal saldo = movimentacoes.Where(m => m.TipoMovimento == 'C').Sum(m => m.Valor) -
+                double saldo = movimentacoes.Where(m => m.TipoMovimento == 'C').Sum(m => m.Valor) -
                                 movimentacoes.Where(m => m.TipoMovimento == 'D').Sum(m => m.Valor);
 
                 // Consulta para obter os dados da conta corrente

@@ -34,12 +34,6 @@ namespace API_Core.Controllers
         {
             try
             {
-                //IEnumerable<ContaCorrente> movimentacoes = await _contaCorrenteQuery.GetAllContasCorrentes_SimplesAsync();
-                //return Ok(movimentacoes);
-
-
-
-
                 IEnumerable<Movimentacao> movimentacoes = await _movimentacaoQuery.GetMovimentacoesAsync();
                 return Ok(movimentacoes);
             }

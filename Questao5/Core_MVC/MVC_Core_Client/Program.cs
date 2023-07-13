@@ -18,8 +18,8 @@ builder.Services.AddTransient<HttpClient>();
 //            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 // sqlite
-builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
-builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
+//builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
+//builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 
 var app = builder.Build();
 
@@ -43,6 +43,6 @@ app.MapControllerRoute(
     pattern: "{controller=ContaCorrente}/{action=Index}/{id?}");
 
 // sqlite: CHAMADA PARA CARREGAMENTO DOS DADOS
-app.Services.GetService<IDatabaseBootstrap>().Setup();
+//app.Services.GetService<IDatabaseBootstrap>().Setup();
 
 app.Run();
