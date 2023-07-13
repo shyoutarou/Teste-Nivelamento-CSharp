@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Questao5_Data.Domain.Entities.ContaCorrente>
+﻿@model IEnumerable<MVC_Core_Client.Models.ContaCorrenteModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -50,7 +50,7 @@
                     @Html.DisplayFor(modelItem => item.UltimaDataMovimento)
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Editar", new { id = item.IdContaCorrente }, new { @class = "btn btn-primary edit", @id = item.IdContaCorrente })
+                    @Html.ActionLink("Saques/Débitos", "Editar", new { id = item.IdContaCorrente }, new { @class = "btn btn-primary edit", @id = item.IdContaCorrente })
                 </td>
             </tr>
         }

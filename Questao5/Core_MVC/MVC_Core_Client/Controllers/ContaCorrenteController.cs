@@ -2,43 +2,46 @@
 using MVC_Core_Client.Infrastructure.Services;
 using MVC_Core_Client.Models;
 using Questao5_Data.Domain.Entities;
-using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
 
 namespace MVC_Core_Client.Controllers
 {
     public class ContaCorrenteController : Controller
     {
-        private readonly IMovimentacaoQuery _movimentacaoQuery;
-        private readonly IContaCorrenteQuery _contaCorrenteQuery;
+        private readonly IContaCorrenteService _contaCorrenteService;
         private readonly IMovimentacaoService _movimentacaoService;
 
-        public ContaCorrenteController(IMovimentacaoQuery movimentacaoQuery, 
-            IContaCorrenteQuery contaCorrenteQuery, 
+        public ContaCorrenteController(IContaCorrenteService contaCorrenteService,
             IMovimentacaoService movimentacaoService)
         {
-            _movimentacaoQuery = movimentacaoQuery;
-            _contaCorrenteQuery = contaCorrenteQuery;
+            _contaCorrenteService = contaCorrenteService;
             _movimentacaoService = movimentacaoService;
         }
 
 
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
-            var listaContaCorrentes = await _contaCorrenteQuery.GetAllContasCorrentesAsync();
-
-            var listaContaCorrenteModel = listaContaCorrentes.Select(x => new ContaCorrenteModel
+            try
             {
-                IdContaCorrente = x.IdContaCorrente,
-                Numero = x.Numero,
-                Nome = x.Nome,
-                Ativo = x.Ativo,
-                Saldo = x.Saldo,
-                UltimaDataMovimento = x.UltimaDataMovimento
-            }).ToList();
+                var listaContaCorrentes = await _contaCorrenteService.ObterContasCorrentesAsync();
 
-            return View(listaContaCorrentes);
+                var listaContaCorrenteModel = listaContaCorrentes.Select(x => new ContaCorrenteModel
+                {
+                    IdContaCorrente = x.IdContaCorrente,
+                    Numero = x.Numero,
+                    Nome = x.Nome,
+                    Ativo = x.Ativo,
+                    Saldo = x.Saldo,
+                    UltimaDataMovimento = x.UltimaDataMovimento
+                }).ToList();
+
+
+                return View(listaContaCorrentes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Ocorreu um erro ao pesquisar as contas.");
+            }
         }
-
 
         public ActionResult Editar(string id)
         {

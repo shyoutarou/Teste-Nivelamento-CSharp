@@ -25,12 +25,13 @@ namespace MVC_Core_Client.Models
         public DateTime UltimaDataMovimento { get; set; }
 
         [Display(Name = "Saldo")]
-        public decimal Saldo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public double Saldo { get; set; }
 
         [Display(Name = "Créditos")]
-        public decimal Creditos { get; set; }
+        public double Creditos { get; set; }
         [Display(Name = "Débitos")]
-        public decimal Debitos { get; set; }
+        public double Debitos { get; set; }
 
         public string IdMovimento { get; set; }
         public List<Movimentacao> Movimentacoes { get; set; }

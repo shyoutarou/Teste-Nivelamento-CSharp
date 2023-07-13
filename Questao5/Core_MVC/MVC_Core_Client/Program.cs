@@ -1,25 +1,17 @@
 using MVC_Core_Client.Infrastructure.Services;
-using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
-using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
-using Questao5_Data.Infrastructure.Sqlite;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddTransient<IContaCorrenteQuery, ContaCorrenteQuery>();
-builder.Services.AddTransient<IContaCorrenteCommand, ContaCorrenteCommand>();
-builder.Services.AddTransient<IMovimentacaoQuery, MovimentacaoQuery>();
-builder.Services.AddTransient<IMovimentacaoCommand, MovimentacaoCommand>();
+
+builder.Services.AddTransient<IContaCorrenteService, ContaCorrenteService>();
 builder.Services.AddTransient<IMovimentacaoService, MovimentacaoService>();
 builder.Services.AddTransient<HttpClient>();
 
 //            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
-// sqlite
-//builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });
-//builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 
 var app = builder.Build();
 
@@ -42,7 +34,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=ContaCorrente}/{action=Index}/{id?}");
 
-// sqlite: CHAMADA PARA CARREGAMENTO DOS DADOS
-//app.Services.GetService<IDatabaseBootstrap>().Setup();
 
 app.Run();
