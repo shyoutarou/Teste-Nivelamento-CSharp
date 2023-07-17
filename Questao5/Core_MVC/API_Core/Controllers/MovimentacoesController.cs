@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using ApiMediatR.Handlers.Request;
+using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Questao5_Data.Domain.Entities;
 using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
@@ -14,16 +16,12 @@ namespace API_Core.Controllers
         private readonly IContaCorrenteCommand _contaCorrenteCommand;
         private readonly IMovimentacaoQuery _movimentacaoQuery;
         private readonly IContaCorrenteQuery _contaCorrenteQuery;
+        private readonly IMediator _mediator;
 
-        public MovimentacoesController(IMovimentacaoCommand movimentacaoCommand,
-                                       IContaCorrenteCommand contaCorrenteCommand,
-                                       IMovimentacaoQuery movimentacaoQuery,
-                                       IContaCorrenteQuery contaCorrenteQuery)
+
+        public MovimentacoesController(IMediator mediator)
         {
-            _movimentacaoCommand = movimentacaoCommand;
-            _contaCorrenteCommand = contaCorrenteCommand;
-            _movimentacaoQuery = movimentacaoQuery;
-            _contaCorrenteQuery = contaCorrenteQuery;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -34,7 +32,9 @@ namespace API_Core.Controllers
         {
             try
             {
-                IEnumerable<Movimentacao> movimentacoes = await _movimentacaoQuery.GetMovimentacoesAsync();
+                IEnumerable<Movimentacao> movimentacoes = await _mediator.Send(new GetMoviemntacoesRequest());
+
+                //IEnumerable<Movimentacao> movimentacoes = await _movimentacaoQuery.GetMovimentacoesAsync();
                 return Ok(movimentacoes);
             }
             catch (Exception ex)
@@ -74,7 +74,8 @@ namespace API_Core.Controllers
         {
             try
             {
-                await _movimentacaoCommand.AddMovimentacaoAsync(movimentacao);
+                await _mediator.Send(new EditarMovimentacaoRequest { movimentacao = movimentacao });
+
                 return CreatedAtAction(nameof(Get), new { id = movimentacao.IdMovimento }, movimentacao);
             }
             catch (Exception ex)

@@ -11,7 +11,8 @@ namespace MVC_Core_Client.Controllers
         private readonly IMovimentacaoService _movimentacaoService;
 
         public ContaCorrenteController(IContaCorrenteService contaCorrenteService,
-            IMovimentacaoService movimentacaoService)
+            IMovimentacaoService movimentacaoService
+            )
         {
             _contaCorrenteService = contaCorrenteService;
             _movimentacaoService = movimentacaoService;
@@ -33,7 +34,6 @@ namespace MVC_Core_Client.Controllers
                     Saldo = x.Saldo,
                     UltimaDataMovimento = x.UltimaDataMovimento
                 }).ToList();
-
 
                 return View(listaContaCorrentes);
             }

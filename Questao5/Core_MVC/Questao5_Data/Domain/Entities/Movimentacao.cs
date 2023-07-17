@@ -28,8 +28,13 @@ namespace Questao5_Data.Domain.Entities
             {
                 if (!String.IsNullOrWhiteSpace(ValorString))
                 {
-                    if (double.TryParse(ValorString.Replace(",", "."), out double valor))
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(ValorString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
                         return valor;
+
+                    //CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    //if (double.TryParse(ValorString.Replace(".", "").Replace(",", "."), NumberStyles.Float, culture, out double valor))
+                    //    return valor;
                 }
 
                 return 0;
@@ -39,6 +44,26 @@ namespace Questao5_Data.Domain.Entities
                 ValorString = value.ToString(CultureInfo.InvariantCulture);
             }
         }
+
+
+
+        //public double Valor
+        //{
+        //    get
+        //    {
+        //        if (!String.IsNullOrWhiteSpace(ValorString))
+        //        {
+        //            if (double.TryParse(ValorString.Replace(",", "."), out double valor))
+        //                return valor;
+        //        }
+
+        //        return 0;
+        //    }
+        //    set
+        //    {
+        //        ValorString = value.ToString(CultureInfo.InvariantCulture);
+        //    }
+        //}
 
 
         //public string DataMovimento { get; set; }

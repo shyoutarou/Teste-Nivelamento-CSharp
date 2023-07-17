@@ -571,6 +571,54 @@ O padrão Mediator é especialmente útil quando o número de interações entre
 Lembre-se de sempre avaliar as necessidades do sistema e escolher o padrão de projeto mais adequado para cada situação. O padrão Mediator certamente pode ser uma excelente opção quando há a necessidade de coordenação e comunicação entre objetos.
 
 
+### MediatR
+
+A função AddMediatR é usada para configurar o MediatR na injeção de dependência do ASP.NET Core. O MediatR é uma biblioteca que implementa o padrão mediator (mediador), permitindo a implementação de comunicação e gerenciamento de solicitações e manipuladores em um aplicativo.
+
+Ao chamar builder.Services.AddMediatR(Assembly.GetExecutingAssembly()), você está registrando os manipuladores de solicitação e notificação definidos no assembly atual na injeção de dependência. Isso permite que você use o MediatR para enviar solicitações e notificações em seu aplicativo.
+
+O MediatR facilita a separação das preocupações no código, fornecendo um meio de comunicação entre diferentes partes do sistema sem criar acoplamento rígido entre elas. Com o MediatR, você pode enviar uma solicitação para um manipulador apropriado, que irá processá-la e retornar uma resposta. Você também pode enviar notificações para notificar outros componentes sobre eventos importantes que ocorrem no sistema.
+
+A chamada Assembly.GetExecutingAssembly() retorna o assembly atual, onde o código está sendo executado. Ao passá-lo para AddMediatR, você está dizendo ao MediatR para procurar e registrar todos os manipuladores de solicitação e notificação definidos no assembly atual.
+
+Depois de registrar o MediatR dessa forma, você pode injetar o IMediator em outras partes do seu aplicativo e usá-lo para enviar solicitações e notificações. Por exemplo:
+
+
+## Links para implementar ASP.NET Core, CQRS e Mediator
+
+- [ASP .NET Core  - Usando o padrão Mediator com MediatR (CQRS)](https://www.macoratti.net/20/07/aspc_mediatr1.htm)
+- [ASP.NET Core - Usando a biblioteca MediatR (revisitado)](https://macoratti.net/21/06/aspnc_meditr1.htm)
+- [.NET - Apresentando a biblioteca MediatR](https://www.youtube.com/watch?v=J-mC0i_R72M)
+- [ASP.NET Core, CQRS e Mediator](https://balta.io/blog/aspnet-core-cqrs-mediator)
+- [Mediator Pattern com MediatR no ASP.NET Core](https://www.treinaweb.com.br/blog/mediator-pattern-com-mediatr-no-asp-net-core)
+- [MediatR Repo](https://github.com/jbogard/MediatR)
+- [MediatR no .NET 6.0](https://henriquemauri.net/mediatr-no-net-6-0/)
+
+
+```bash
+public class MeuServico
+{
+    private readonly IMediator _mediator;
+
+    public MeuServico(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    public async Task ExecutarAlgo()
+    {
+        // Enviar uma solicitação e receber a resposta
+        var resposta = await _mediator.Send(new MinhaSolicitacao());
+
+        // Enviar uma notificação
+        await _mediator.Publish(new MinhaNotificacao());
+    }
+}
+
+
+```
+
+
 
 </details>
 

@@ -1,4 +1,7 @@
+using Microsoft.Extensions.Configuration;
 using MVC_Core_Client.Infrastructure.Services;
+using Questao5_Data.Infrastructure.Sqlite;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +12,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IContaCorrenteService, ContaCorrenteService>();
 builder.Services.AddTransient<IMovimentacaoService, MovimentacaoService>();
 builder.Services.AddTransient<HttpClient>();
+builder.Services.AddTransient<ApiConfig>();
 
-//            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+//utilização do MediatR pode ajudar a implementar o requisito de resiliência a falha
+//builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
+//Adiciona a URL PADRÂO
+builder.Services.AddSingleton(new ApiConfig { BaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl", "https://localhost:44358/") });
 
 
 var app = builder.Build();

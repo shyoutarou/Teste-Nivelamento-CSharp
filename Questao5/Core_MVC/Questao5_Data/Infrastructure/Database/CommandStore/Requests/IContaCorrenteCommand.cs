@@ -4,10 +4,10 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
 {
     public interface IContaCorrenteCommand
     {
-        void AddContaCorrente(ContaCorrente movimentacao);
+        Task AddContaCorrenteAsync(ContaCorrente movimentacao);
 
-        bool UpdateContaCorrente(ContaCorrente movimentacao);
-        void DeleteContaCorrente(int id);
+        Task<bool> UpdateContaCorrenteAsync(ContaCorrente movimentacao);
 
+        Task DeleteContaCorrenteAsync(string id);
     }
 }

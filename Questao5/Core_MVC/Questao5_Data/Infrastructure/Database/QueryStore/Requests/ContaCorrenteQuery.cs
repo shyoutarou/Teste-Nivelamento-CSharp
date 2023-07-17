@@ -23,12 +23,14 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
             {
                 await connection.OpenAsync();
 
-                var query = @"SELECT MAX(m.idmovimento) AS idmovimento, c.idcontacorrente, c.numero, c.nome, c.ativo,
-                          SUM(m.valor) AS Creditos,
-                          SUM(CASE WHEN m.tipomovimento = 'D' THEN m.valor ELSE 0 END) AS Debitos
-                      FROM contacorrente c
-                      LEFT JOIN movimento m ON c.idcontacorrente = m.idcontacorrente
-                      GROUP BY c.idcontacorrente, c.numero, c.nome, c.ativo";
+                var query = @"
+                                    SELECT MAX(m.idmovimento) AS idmovimento, c.idcontacorrente, c.numero, c.nome, c.ativo,
+                                        CAST(SUM(CASE WHEN m.tipomovimento = 'C' THEN m.valor ELSE 0 END) AS REAL) AS Creditos,
+                                        CAST(SUM(CASE WHEN m.tipomovimento = 'D' THEN m.valor ELSE 0 END) AS REAL) AS Debitos,
+                                        m.datamovimento AS UltimaDataMovimentoString
+                                    FROM contacorrente c
+                                    LEFT JOIN movimento m ON c.idcontacorrente = m.idcontacorrente
+                                    GROUP BY c.idcontacorrente, c.numero, c.nome, c.ativo";
 
                 var queryResult = await connection.QueryAsync<ContaCorrente>(query);
 
@@ -41,7 +43,8 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
                     Ativo = row.Ativo,
                     Creditos = row.Creditos,
                     Debitos = row.Debitos,
-                    Saldo = row.Creditos - row.Debitos
+                    Saldo = row.Creditos - row.Debitos,
+                    UltimaDataMovimentoString = row.UltimaDataMovimentoString
                 }).ToList();
 
                 connection.Close();

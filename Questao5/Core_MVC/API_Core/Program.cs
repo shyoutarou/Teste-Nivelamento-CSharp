@@ -1,6 +1,8 @@
+using MediatR;
 using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
 using Questao5_Data.Infrastructure.Sqlite;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,8 @@ builder.Services.AddTransient<IContaCorrenteCommand, ContaCorrenteCommand>();
 builder.Services.AddTransient<IMovimentacaoQuery, MovimentacaoQuery>();
 builder.Services.AddTransient<IMovimentacaoCommand, MovimentacaoCommand>();
 
-//            builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+//utilização do MediatR pode ajudar a implementar o requisito de resiliência a falha
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 // sqlite
 builder.Services.AddSingleton(new DatabaseConfig { Name = builder.Configuration.GetValue<string>("DatabaseName", "Data Source=database.sqlite") });

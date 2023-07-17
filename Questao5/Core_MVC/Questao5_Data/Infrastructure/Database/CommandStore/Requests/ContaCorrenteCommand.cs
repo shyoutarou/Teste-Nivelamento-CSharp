@@ -14,38 +14,59 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
             _databaseConfig = databaseConfig;
         }
 
-
-        public void AddContaCorrente(ContaCorrente contacorrente)
+        public async Task AddContaCorrenteAsync(ContaCorrente contacorrente)
         {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            try
             {
-                connection.Execute(@"INSERT INTO contacorrente (IdContaCorrente, Numero, Nome, Ativo)
+                using (var connection = new SqliteConnection(_databaseConfig.Name))
+                {
+                    await connection.ExecuteAsync(@"INSERT INTO contacorrente (IdContaCorrente, Numero, Nome, Ativo)
                                  VALUES (@IdContaCorrente, @Numero, @Nome, @Ativo)",
                                      contacorrente);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log do erro
+                throw new Exception("Ocorreu um erro ao adicionar a conta corrente.", ex);
             }
         }
 
-        public void DeleteContaCorrente(int id)
+        public async Task DeleteContaCorrenteAsync(string id)
         {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            try
             {
-                connection.Execute(@"DELETE contacorrente WHERE IdContaCorrente = @IdContaCorrente", id);
+                using (var connection = new SqliteConnection(_databaseConfig.Name))
+                {
+                    await connection.ExecuteAsync(@"DELETE contacorrente WHERE IdContaCorrente = @IdContaCorrente", id);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log do erro
+                throw new Exception("Ocorreu um erro ao excluir a conta corrente.", ex);
             }
         }
 
-        public bool UpdateContaCorrente(ContaCorrente contacorrente)
+        public async Task<bool> UpdateContaCorrenteAsync(ContaCorrente contacorrente)
         {
-            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            try
             {
-                connection.Execute(@"UPDATE contacorrente SET
+                using (var connection = new SqliteConnection(_databaseConfig.Name))
+                {
+                    await connection.ExecuteAsync(@"UPDATE contacorrente SET
                                        Nome = @Nome, 
                                        Ativo = @Ativo
                                       WHERE IdContaCorrente = @IdContaCorrente ", contacorrente);
+                }
 
                 return true;
             }
+            catch (Exception ex)
+            {
+                // Log do erro
+                throw new Exception("Ocorreu um erro ao atualizar a conta corrente.", ex);
+            }
         }
-
-
     }
 }

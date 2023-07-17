@@ -9,7 +9,7 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
 {
     public interface IMovimentacaoCommand
     {
-        Task AddMovimentacaoAsync(Movimentacao movimentacao);
+        Task<Guid> AddMovimentacaoAsync(Movimentacao movimentacao);
         Task<bool> UpdateMovimentacaoAsync(Movimentacao movimentacao);
         Task DeleteMovimentacaoAsync(int id);
     }

@@ -15,7 +15,7 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
         }
 
 
-        public async Task AddMovimentacaoAsync(Movimentacao movimentacao)
+        public async Task<Guid> AddMovimentacaoAsync(Movimentacao movimentacao)
         {
             try
             {
@@ -33,6 +33,9 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
                                                     movimentacao.Valor,
                                                     movimentacao.TipoMovimento
                                                 });
+
+
+                    return new Guid(movimentacao.IdMovimento);
                 }
             }
             catch (Exception ex)
