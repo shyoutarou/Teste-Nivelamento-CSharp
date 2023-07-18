@@ -1,23 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
-namespace Questao5_Data.Domain.Entities
+namespace MVC_Core_Client.Models
 {
-    public class Movimentacao
+    public class MovimentacaoModel
     {
-        [StringLength(37, ErrorMessage = "O campo IdMovimento deve ter no máximo 37 caracteres.")]
+        [Display(Name = "ID")]
         public string IdMovimento { get; set; }
 
-        [StringLength(37, ErrorMessage = "O campo IdContaCorrente deve ter no máximo 37 caracteres.")]
+        [Display(Name = "Conta")]
         public string IdContaCorrente { get; set; }
 
-        [RegularExpression("^[DC]$", ErrorMessage = "O valor deve ser 'D' ou 'C'.")]
-        [Required(ErrorMessage = "O campo Tipo Movimento é obrigatório.")]
+        [Display(Name = "Tipo Movimento")]
         public char TipoMovimento { get; set; }
 
 
-        [RegularExpression(@"^\d{1,3}(?:\.\d{3})*(?:,\d{1,2}|\.\d{1,2})?$", ErrorMessage = "O campo Valor deve ser um valor válido.")]
-        [Required(ErrorMessage = "O campo Valor é obrigatório.")]
         public string ValorString { get; set; }
 
         public double Valor
@@ -29,7 +26,6 @@ namespace Questao5_Data.Domain.Entities
                     CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
                     if (double.TryParse(ValorString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
                         return valor;
-
                 }
 
                 return 0;

@@ -14,6 +14,8 @@ builder.Services.AddTransient<IContaCorrenteQuery, ContaCorrenteQuery>();
 builder.Services.AddTransient<IContaCorrenteCommand, ContaCorrenteCommand>();
 builder.Services.AddTransient<IMovimentacaoQuery, MovimentacaoQuery>();
 builder.Services.AddTransient<IMovimentacaoCommand, MovimentacaoCommand>();
+builder.Services.AddTransient<IIdempotenciaQuery, IdempotenciaQuery>();
+builder.Services.AddTransient<IIdempotenciaCommand, IdempotenciaCommand>();
 
 //utilização do MediatR pode ajudar a implementar o requisito de resiliência a falha
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());

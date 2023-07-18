@@ -1,4 +1,5 @@
-﻿using ApiMediatR.Handlers.Request;
+﻿using API_Core.Application.Queries.Requests;
+using ApiMediatR.Handlers.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Questao5_Data.Domain.Entities;

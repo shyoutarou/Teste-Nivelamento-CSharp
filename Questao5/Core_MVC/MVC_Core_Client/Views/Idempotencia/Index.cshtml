@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MVC_Core_Client.Models.IdempotenciaModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ChaveIdempotencia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Requisicao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resultado)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChaveIdempotencia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requisicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resultado)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="modal" class="modal fade" role="dialog" />
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MVC_Core_Client.Models.MovimentacaoModel>
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdMovimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdContaCorrente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoMovimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorString)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdMovimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdContaCorrente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoMovimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorString)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

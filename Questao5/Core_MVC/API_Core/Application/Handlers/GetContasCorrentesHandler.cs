@@ -1,4 +1,4 @@
-﻿using ApiMediatR.Handlers.Request;
+﻿using API_Core.Application.Queries.Requests;
 using MediatR;
 using Questao5_Data.Domain.Entities;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;

@@ -1,11 +1,11 @@
-﻿using ApiMediatR.Handlers.Request;
+﻿using API_Core.Application.Queries.Requests;
 using MediatR;
 using Questao5_Data.Domain.Entities;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
 
 namespace ApiMediatR.Handlers
 {
-    public class GetMovimentacoesHandler : IRequestHandler<GetMoviemntacoesRequest, IEnumerable<Movimentacao>>
+    public class GetMovimentacoesHandler : IRequestHandler<GetMovimentacoesRequest, IEnumerable<Movimentacao>>
     {
         private readonly IMovimentacaoQuery _movimentacaoQuery;
 
@@ -14,7 +14,7 @@ namespace ApiMediatR.Handlers
             _movimentacaoQuery = movimentacaoQuery;
         }
 
-        public async Task<IEnumerable<Movimentacao>> Handle(GetMoviemntacoesRequest request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Movimentacao>> Handle(GetMovimentacoesRequest request, CancellationToken cancellationToken)
         {
             return await _movimentacaoQuery.GetMovimentacoesAsync();
         }

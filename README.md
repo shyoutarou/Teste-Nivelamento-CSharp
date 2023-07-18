@@ -584,17 +584,6 @@ A chamada Assembly.GetExecutingAssembly() retorna o assembly atual, onde o códi
 Depois de registrar o MediatR dessa forma, você pode injetar o IMediator em outras partes do seu aplicativo e usá-lo para enviar solicitações e notificações. Por exemplo:
 
 
-## Links para implementar ASP.NET Core, CQRS e Mediator
-
-- [ASP .NET Core  - Usando o padrão Mediator com MediatR (CQRS)](https://www.macoratti.net/20/07/aspc_mediatr1.htm)
-- [ASP.NET Core - Usando a biblioteca MediatR (revisitado)](https://macoratti.net/21/06/aspnc_meditr1.htm)
-- [.NET - Apresentando a biblioteca MediatR](https://www.youtube.com/watch?v=J-mC0i_R72M)
-- [ASP.NET Core, CQRS e Mediator](https://balta.io/blog/aspnet-core-cqrs-mediator)
-- [Mediator Pattern com MediatR no ASP.NET Core](https://www.treinaweb.com.br/blog/mediator-pattern-com-mediatr-no-asp-net-core)
-- [MediatR Repo](https://github.com/jbogard/MediatR)
-- [MediatR no .NET 6.0](https://henriquemauri.net/mediatr-no-net-6-0/)
-
-
 ```bash
 public class MeuServico
 {
@@ -618,6 +607,15 @@ public class MeuServico
 
 ```
 
+## Links para implementar ASP.NET Core, CQRS e Mediator
+
+- [ASP .NET Core  - Usando o padrão Mediator com MediatR (CQRS)](https://www.macoratti.net/20/07/aspc_mediatr1.htm)
+- [ASP.NET Core - Usando a biblioteca MediatR (revisitado)](https://macoratti.net/21/06/aspnc_meditr1.htm)
+- [.NET - Apresentando a biblioteca MediatR](https://www.youtube.com/watch?v=J-mC0i_R72M)
+- [ASP.NET Core, CQRS e Mediator](https://balta.io/blog/aspnet-core-cqrs-mediator)
+- [Mediator Pattern com MediatR no ASP.NET Core](https://www.treinaweb.com.br/blog/mediator-pattern-com-mediatr-no-asp-net-core)
+- [MediatR Repo](https://github.com/jbogard/MediatR)
+- [MediatR no .NET 6.0](https://henriquemauri.net/mediatr-no-net-6-0/)
 
 
 </details>

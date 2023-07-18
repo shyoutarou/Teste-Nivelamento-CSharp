@@ -1,4 +1,5 @@
-﻿using ApiMediatR.Handlers.Request;
+﻿using API_Core.Application.Queries.Requests;
+using ApiMediatR.Handlers.Request;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace API_Core.Controllers
         {
             try
             {
-                IEnumerable<Movimentacao> movimentacoes = await _mediator.Send(new GetMoviemntacoesRequest());
+                IEnumerable<Movimentacao> movimentacoes = await _mediator.Send(new GetMovimentacoesRequest());
 
                 //IEnumerable<Movimentacao> movimentacoes = await _movimentacaoQuery.GetMovimentacoesAsync();
                 return Ok(movimentacoes);
