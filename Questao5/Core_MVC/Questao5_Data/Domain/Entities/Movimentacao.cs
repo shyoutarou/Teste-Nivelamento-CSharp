@@ -20,23 +20,35 @@ namespace Questao5_Data.Domain.Entities
         [Required(ErrorMessage = "O campo Valor é obrigatório.")]
         public string ValorString { get; set; }
 
+
+
         public double Valor
         {
             get
             {
                 if (!String.IsNullOrWhiteSpace(ValorString))
                 {
-                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
-                    if (double.TryParse(ValorString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                    CultureInfo culture = new CultureInfo("pt-BR");
+                    NumberStyles style = NumberStyles.Float | NumberStyles.AllowThousands;
+
+                    // Fazer a substituição apenas dos separadores de milhar
+                    string valorStringFormatted = ValorString.Replace(".", "");
+
+                    if (double.TryParse(valorStringFormatted, style, culture, out double valor))
                         return valor;
 
+
+                    //CultureInfo culture = new CultureInfo("pt-BR");
+                    //NumberStyles style = NumberStyles.Float | NumberStyles.AllowThousands;
+                    //if (double.TryParse(ValorString.Replace(",", ".").Replace(".", ","), style, culture, out double valor))
+                    //    return valor;
                 }
 
                 return 0;
             }
             set
             {
-                ValorString = value.ToString(CultureInfo.InvariantCulture);
+                ValorString = value.ToString("N2", CultureInfo.CurrentCulture);
             }
         }
 

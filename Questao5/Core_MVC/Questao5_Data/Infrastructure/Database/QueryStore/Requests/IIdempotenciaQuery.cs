@@ -10,5 +10,6 @@ namespace Questao5_Data.Infrastructure.Database.CommandStore.Requests
     public interface IIdempotenciaQuery
     {
         Task<Idempotencia> GetIdempotenciaByKeyAsync(string chaveIdempotencia);
+        Task<IEnumerable<Idempotencia>> GetIdempotenciasAsync();
     }
 }

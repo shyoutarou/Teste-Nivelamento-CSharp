@@ -49,7 +49,7 @@ namespace ApiMediatR.Handlers
             int retryCount = 0;
             const int maxRetries = 3;
             var Idretorno = new Guid();
-
+            
             while (!success && retryCount < maxRetries)
             {
                 try

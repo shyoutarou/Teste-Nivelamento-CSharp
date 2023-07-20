@@ -25,8 +25,8 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
 
                 var query = @"
                                     SELECT MAX(m.idmovimento) AS idmovimento, c.idcontacorrente, c.numero, c.nome, c.ativo,
-                                        CAST(SUM(CASE WHEN m.tipomovimento = 'C' THEN m.valor ELSE 0 END) AS REAL) AS Creditos,
-                                        CAST(SUM(CASE WHEN m.tipomovimento = 'D' THEN m.valor ELSE 0 END) AS REAL) AS Debitos,
+                                        CAST(ROUND(SUM(CASE WHEN m.tipomovimento = 'C' THEN m.valor ELSE 0 END), 2) AS TEXT) AS Creditos,
+                                        CAST(ROUND(SUM(CASE WHEN m.tipomovimento = 'D' THEN m.valor ELSE 0 END), 2) AS TEXT) AS Debitos,
                                         m.datamovimento AS UltimaDataMovimentoString
                                     FROM contacorrente c
                                     LEFT JOIN movimento m ON c.idcontacorrente = m.idcontacorrente
@@ -41,9 +41,9 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
                     Numero = row.Numero,
                     Nome = row.Nome,
                     Ativo = row.Ativo,
-                    Creditos = row.Creditos,
-                    Debitos = row.Debitos,
-                    Saldo = row.Creditos - row.Debitos,
+                    CreditosString = row.Creditos.ToString(),
+                    DebitosString = row.Debitos.ToString(),
+                    SaldoString = (row.Creditos - row.Debitos).ToString(),
                     UltimaDataMovimentoString = row.UltimaDataMovimentoString
                 }).ToList();
 

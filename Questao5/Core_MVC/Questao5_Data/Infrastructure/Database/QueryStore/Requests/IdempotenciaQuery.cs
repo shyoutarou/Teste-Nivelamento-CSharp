@@ -23,5 +23,22 @@ namespace Questao5_Data.Infrastructure.Database.QueryStore.Requests
                     new { ChaveIdempotencia = chaveIdempotencia });
             }
         }
+
+        public async Task<IEnumerable<Idempotencia>> GetIdempotenciasAsync()
+        {
+            using (var connection = new SqliteConnection(_databaseConfig.Name))
+            {
+                var queryResult = await connection.QueryAsync<Idempotencia>("SELECT chave_idempotencia AS ChaveIdempotencia, requisicao, resultado FROM idempotencia");
+
+                var idempotencias = queryResult.Select(row => new Idempotencia
+                {
+                    ChaveIdempotencia = row.ChaveIdempotencia,
+                    Requisicao = row.Requisicao,
+                    Resultado = row.Resultado
+                });
+
+                return idempotencias;
+            }
+        }
     }
 }

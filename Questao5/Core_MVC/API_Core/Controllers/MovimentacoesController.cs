@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Questao5_Data.Domain.Entities;
 using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
+using System.Globalization;
 
 namespace API_Core.Controllers
 {

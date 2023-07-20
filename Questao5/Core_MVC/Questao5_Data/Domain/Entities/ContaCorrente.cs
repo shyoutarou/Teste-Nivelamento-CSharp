@@ -24,6 +24,7 @@ namespace Questao5_Data.Domain.Entities
         {
             get
             {
+
                 if (!String.IsNullOrWhiteSpace(DtAlteracaoString))
                 {
                     DateTime.TryParseExact(DtAlteracaoString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dtAlteracao);
@@ -60,29 +61,7 @@ namespace Questao5_Data.Domain.Entities
             }
         }
 
-        //public string UltimaDataMovimentoString { get; set; }
-
-
-        //[NotMapped]
-        //public DateTime UltimaDataMovimento
-        //{
-        //    get
-        //    {
-        //        if (!String.IsNullOrWhiteSpace(UltimaDataMovimentoString))
-        //        {
-        //            DateTime.TryParseExact(UltimaDataMovimentoString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime ultimaDataMovimento);
-        //            return ultimaDataMovimento;
-        //        }
-
-        //        return DateTime.MinValue;
-        //    }
-        //    set
-        //    {
-        //        UltimaDataMovimentoString = value.ToString("dd/MM/yyyy HH:mm:ss");
-        //    }
-        //}
-
-
+  
         [NotMapped]
         public string SaldoString { get; set; }
 
@@ -93,8 +72,10 @@ namespace Questao5_Data.Domain.Entities
             {
                 if (!String.IsNullOrWhiteSpace(SaldoString))
                 {
-                    if (double.TryParse(SaldoString.Replace(",", "."), out double saldo))
-                        return saldo;
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(SaldoString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                        return valor;
+
                 }
 
                 return 0;
@@ -115,8 +96,10 @@ namespace Questao5_Data.Domain.Entities
             {
                 if (!String.IsNullOrWhiteSpace(CreditosString))
                 {
-                    if (double.TryParse(CreditosString.Replace(",", "."), out double creditos))
-                        return creditos;
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(CreditosString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                        return valor;
+
                 }
 
                 return 0;
@@ -137,8 +120,10 @@ namespace Questao5_Data.Domain.Entities
             {
                 if (!String.IsNullOrWhiteSpace(DebitosString))
                 {
-                    if (double.TryParse(DebitosString.Replace(",", "."), out double debitos))
-                        return debitos;
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(DebitosString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                        return valor;
+
                 }
 
                 return 0;

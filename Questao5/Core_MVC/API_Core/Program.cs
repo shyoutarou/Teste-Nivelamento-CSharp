@@ -1,7 +1,9 @@
 using MediatR;
+using Microsoft.AspNetCore.Localization;
 using Questao5_Data.Infrastructure.Database.CommandStore.Requests;
 using Questao5_Data.Infrastructure.Database.QueryStore.Requests;
 using Questao5_Data.Infrastructure.Sqlite;
+using System.Globalization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +30,8 @@ builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient();
+builder.Services.AddHostedService<StatusCheckerService>();
 
 var app = builder.Build();
 
@@ -43,6 +47,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var supportedCultures = new[] { new CultureInfo("pt-BR") };
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
+//app.UseWebSockets(); // Configurar o middleware para WebSockets
+
+//app.UseRouting();
 
 // sqlite: CHAMADA PARA CARREGAMENTO DOS DADOS
 app.Services.GetService<IDatabaseBootstrap>().Setup();

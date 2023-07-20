@@ -32,7 +32,7 @@ namespace MVC_Core_Client.Models
             }
             set
             {
-                ValorString = value.ToString(CultureInfo.InvariantCulture);
+                ValorString = value.ToString("N2", CultureInfo.CurrentCulture);
             }
         }
 

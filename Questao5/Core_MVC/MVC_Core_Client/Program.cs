@@ -1,7 +1,4 @@
-using Microsoft.Extensions.Configuration;
 using MVC_Core_Client.Infrastructure.Services;
-using Questao5_Data.Infrastructure.Sqlite;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<IContaCorrenteService, ContaCorrenteService>();
 builder.Services.AddTransient<IMovimentacaoService, MovimentacaoService>();
+builder.Services.AddTransient<IIdempotenciaService, IdempotenciaService>();
 builder.Services.AddTransient<HttpClient>();
 builder.Services.AddTransient<ApiConfig>();
 

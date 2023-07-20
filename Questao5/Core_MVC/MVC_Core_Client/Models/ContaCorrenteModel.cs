@@ -1,5 +1,6 @@
 ﻿using Questao5_Data.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace MVC_Core_Client.Models
 {
@@ -24,14 +25,81 @@ namespace MVC_Core_Client.Models
         [Display(Name = "Data de Consulta")]
         public DateTime UltimaDataMovimento { get; set; }
 
-        [Display(Name = "Saldo")]
-        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
-        public double Saldo { get; set; }
+        public string SaldoString { get; set; }
+
+        public double Saldo
+        {
+            get
+            {
+                if (!String.IsNullOrWhiteSpace(SaldoString))
+                {
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(SaldoString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                        return valor;
+
+                }
+
+                return 0;
+            }
+            set
+            {
+                SaldoString = value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+
+
+
+        public string CreditosString { get; set; }
+
 
         [Display(Name = "Créditos")]
-        public double Creditos { get; set; }
+        public double Creditos
+        {
+            get
+            {
+                if (!String.IsNullOrWhiteSpace(CreditosString))
+                {
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(CreditosString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                        return valor;
+
+                }
+
+                return 0;
+            }
+            set
+            {
+                CreditosString = value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+
+
+
         [Display(Name = "Débitos")]
-        public double Debitos { get; set; }
+        public string DebitosString { get; set; }
+
+        public double Debitos
+        {
+            get
+            {
+                if (!String.IsNullOrWhiteSpace(DebitosString))
+                {
+                    CultureInfo culture = new CultureInfo("pt-BR"); // Definir a cultura correta
+                    if (double.TryParse(DebitosString.Replace(",", ".").Replace(".", ","), NumberStyles.Float, culture, out double valor))
+                        return valor;
+
+                }
+
+                return 0;
+            }
+            set
+            {
+                DebitosString = value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
 
         public string IdMovimento { get; set; }
         public List<Movimentacao> Movimentacoes { get; set; }
