@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33529.622
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questao2", "Questao2.csproj", "{DCFC0EA2-3E49-445F-9505-D29F47607175}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1\UnitTestProject1.csproj", "{529833B0-4B56-48E8-866D-65AB6F857750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questao2", "Questao2\Questao2.csproj", "{DCFC0EA2-3E49-445F-9505-D29F47607175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{529833B0-4B56-48E8-866D-65AB6F857750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{529833B0-4B56-48E8-866D-65AB6F857750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{529833B0-4B56-48E8-866D-65AB6F857750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{529833B0-4B56-48E8-866D-65AB6F857750}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCFC0EA2-3E49-445F-9505-D29F47607175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCFC0EA2-3E49-445F-9505-D29F47607175}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCFC0EA2-3E49-445F-9505-D29F47607175}.Release|Any CPU.ActiveCfg = Release|Any CPU

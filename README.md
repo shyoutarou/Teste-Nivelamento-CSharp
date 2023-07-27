@@ -6,7 +6,7 @@
 
 <details>
     <summary><strong>Implementação de Mocks</strong></summary>
-    <br />
+<br />
 
 
 A implementação de mocks é uma prática comum no desenvolvimento de testes unitários, onde objetos simulados são utilizados para substituir dependências reais e controlar o comportamento esperado durante os testes. Vou descrever o processo geral de implementação de mocks e em seguida fazer uma comparação entre as ferramentas NSubstitute e Mockito.
@@ -57,7 +57,123 @@ Contras:
 - Foco principal na linguagem Java, embora haja suporte para outras linguagens por meio de portes ou bibliotecas relacionadas.
 - Pode haver uma curva de aprendizado inicial para dominar todos os recursos.
 
+
 Ambas as ferramentas, NSubstitute e Mockito, são amplamente utilizadas e oferecem recursos eficientes para a implementação de mocks. A escolha entre elas dependerá principalmente da linguagem de programação que você está utilizando e das preferências pessoais. É recomendado experimentar as bibliotecas e verificar qual delas melhor atende às suas necessidades em termos de facilidade de uso, funcionalidades disponíveis e integração com seu ambiente de teste.
+
+### Testes Unitários
+
+Para criar testes unitários para o seu programa, você pode utilizar uma biblioteca de testes como o MSTest, NUnit ou XUnit. Vou utilizar o MSTest como exemplo para criar os testes unitários para as funcionalidades da classe ContaBancaria_BS.
+Aqui estão os passos corretos para criar um projeto de testes MSTest para .NET Core:
+
+1.	No Visual Studio, clique com o botão direito na solução e selecione "Adicionar" > "Novo Projeto".
+2.	No painel de criação de projeto, pesquise por "Test" ou "Test Project".
+3.	Escolha "Projeto de Testes MSTest" (ou "MSTest Test Project" em inglês).
+4.	Dê um nome ao projeto de testes e clique em "Criar".
+
+Com isso, você criará um projeto de testes MSTest para o seu projeto .NET Core. 
+
+<p align="center">
+	<img src="./assets/projetoMSTest.png" alt="csharp" title="C#" width="550" height="120">
+</p>
+
+Agora, crie uma nova classe chamada ContaBancaria_BS_Tests para conter os testes unitários. Lembre-se de que é uma boa prática ter uma classe de testes para cada classe que você deseja testar.
+
+
+```bash
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+[TestClass]
+public class ContaBancaria_BS_Tests
+{
+    [TestMethod]
+    public void Test_Deposito()
+    {
+        // Arrange
+        var conta = new ContaBancaria_BS(1, "Titular Teste");
+        double valorDeposito = 100.0;
+
+        // Act
+        conta.Deposito(valorDeposito);
+
+        // Assert
+        double saldoEsperado = valorDeposito;
+        Assert.AreEqual(saldoEsperado, conta.GetSaldo(), "O saldo após o depósito não foi calculado corretamente.");
+    }
+
+    [TestMethod]
+    public void Test_Saque()
+    {
+        // Arrange
+        var conta = new ContaBancaria_BS(1, "Titular Teste", 200.0);
+        double valorSaque = 50.0;
+
+        // Act
+        conta.Saque(valorSaque);
+
+        // Assert
+        double saldoEsperado = 200.0 - (valorSaque + 3.5);
+        Assert.AreEqual(saldoEsperado, conta.GetSaldo(), "O saldo após o saque não foi calculado corretamente.");
+    }
+
+    [TestMethod]
+    public void Test_ExibirDadosConta()
+    {
+        // Arrange
+        var conta = new ContaBancaria_BS(1, "Titular Teste", 500.0);
+        string dadosEsperados = "Conta 1, Titular: Titular Teste, Saldo: $ 500.00";
+
+        // Act
+        string dadosConta = conta.ToString();
+
+        // Assert
+        Assert.AreEqual(dadosEsperados, dadosConta, "Os dados da conta não foram exibidos corretamente.");
+    }
+}
+
+
+```
+
+Depois, mova a classe ContaBancaria_BS_Tests para esse projeto de testes e execute os testes na janela "Test Explorer".
+Neste exemplo, criamos três métodos de teste para as funcionalidades Deposito, Saque e ExibirDadosConta da classe ContaBancaria_BS. Cada método de teste cria uma instância da classe ContaBancaria_BS, executa a funcionalidade relevante e, em seguida, compara o resultado com o resultado esperado usando o método Assert.AreEqual.
+Lembre-se de que você pode criar mais testes para outras funcionalidades ou cenários que desejar validar. Os testes unitários são uma ótima maneira de garantir que suas classes e métodos estejam funcionando corretamente e que quaisquer alterações futuras não introduzam regressões no seu código. Certifique-se de que sua classe ContaBancaria_BS esteja corretamente implementada para que os testes funcionem conforme o esperado.
+
+A escolha entre as diferentes bibliotecas de teste geralmente se resume a preferências pessoais, integração com ferramentas existentes ou convenções de equipe. Algumas equipes podem preferir usar a biblioteca padrão fornecida pela Microsoft, que é o MSTest. Outras podem optar por bibliotecas de terceiros, como o NUnit ou XUnit, devido a recursos adicionais ou à forma de escrever os testes.
+MSTest é uma biblioteca de testes bem estabelecida e suportada pela Microsoft, e muitas vezes é a escolha padrão para projetos .NET dentro do ecossistema Microsoft. No entanto, NUnit e XUnit também são amplamente utilizados e têm uma base de usuários considerável.
+Independentemente da biblioteca que você escolher, o mais importante é escrever testes unitários sólidos que cubram seus cenários de uso e garantam a qualidade do código. O uso de qualquer biblioteca de teste bem conhecida permitirá que você alcance esse objetivo.
+
+
+Agora que você criou a classe de teste e instalou o MSTest, você pode executar os testes para garantir que a classe ContaBancaria_BS esteja funcionando conforme o esperado.
+Para executar os testes, siga os passos abaixo:
+1.	Abra a janela "Test Explorer": No Visual Studio, vá para "Test" > "Windows" > "Test Explorer". 
+
+<p align="center">
+	<img src="./assets/TestExplorer.png" alt="csharp" title="C#" width="550" height="120">
+</p>
+
+2.	Isso abrirá a janela do Test Explorer, onde você verá a lista de todos os testes disponíveis no projeto.
+3.	Certifique-se de que os testes estão visíveis na janela "Test Explorer": Se você escreveu os testes corretamente com o atributo [TestMethod] acima de cada método de teste, os testes devem aparecer na janela do Test Explorer.
+4.	Execute os testes: Para executar todos os testes, clique no botão "Run All" na parte superior da janela do Test Explorer. Isso executará todos os métodos de teste na classe ContaBancaria_BS_Tests e exibirá os resultados na janela.
+
+<p align="center">
+	<img src="./assets/RunAll.png" alt="csharp" title="C#" width="550" height="120">
+</p>
+
+5.	Verifique os resultados dos testes: Após a execução dos testes, você verá o status de cada teste (passou ou falhou) na janela do Test Explorer. Se um teste falhar, você verá detalhes do motivo do erro.
+
+<p align="center">
+	<img src="./assets/Passoufalhou.png" alt="csharp" title="C#" width="550" height="120">
+</p>
+
+6.	Depuração de testes (opcional): Se algum teste falhar e você quiser depurar para encontrar o problema, basta clicar com o botão direito no teste específico na janela do Test Explorer e selecionar "Debug Selected Tests". Isso permitirá que você execute o teste em modo de depuração e inspecione as variáveis e etapas do código.
+
+
+<p align="center">
+	<img src="./assets/DepurarErro.png" alt="csharp" title="C#" width="550" height="120">
+</p>
+
+Pronto! Você agora pode executar e verificar os resultados dos testes. Se todos os testes passarem, isso significa que suas funcionalidades na classe ContaBancaria_BS estão funcionando corretamente. Caso algum teste falhe, você poderá identificar o problema e corrigir a funcionalidade correspondente na classe original.
+Lembre-se de que, conforme você desenvolve e altera a classe ContaBancaria_BS, é uma boa prática executar os testes regularmente para garantir que as mudanças não tenham introduzido regressões no código. Testes unitários são uma parte essencial da prática de desenvolvimento orientado a testes (TDD) e ajudam a manter a qualidade do código ao longo do tempo.
+
 
 </details>
 

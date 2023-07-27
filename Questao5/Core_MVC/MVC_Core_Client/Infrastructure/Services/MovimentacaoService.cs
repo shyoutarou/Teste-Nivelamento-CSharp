@@ -1,9 +1,6 @@
 ﻿using MVC_Core_Client.Models;
 using Newtonsoft.Json;
 using Questao5_Data.Domain.Entities;
-using System.ComponentModel;
-using System.Globalization;
-using System.Net.Http;
 using System.Text;
 
 namespace MVC_Core_Client.Infrastructure.Services

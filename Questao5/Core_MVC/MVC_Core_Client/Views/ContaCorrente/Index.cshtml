@@ -46,11 +46,11 @@
                 <td>
                     @if (item.Ativo)
                     {
-                        @Html.DisplayFor(modelItem => item.Saldo)
+                        @string.Format("{0:N2}", item.Saldo)
                     }
                     else
                     {
-                        @Html.Display("0.00")
+                        @string.Format("{0:N2}", 0)
                     }
                 </td>
                 <td>
